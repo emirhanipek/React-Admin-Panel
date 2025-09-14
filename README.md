@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+# Sergio Ferrari E-Commerce Admin Panel
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern ve kullanıcı dostu React tabanlı e-ticaret admin paneli. Ürün ve kategori yönetimi için geliştirilmiş, responsive tasarıma sahip admin dashboard.
 
-## Available Scripts
+![Dashboard](project-images/1.png)
 
-In the project directory, you can run:
+## 🚀 Özellikler
 
-### `npm start`
+### 📊 Dashboard
+- Modern ve temiz arayüz
+- Responsive tasarım (Mobile, Tablet, Desktop)
+- Real-time istatistikler
+- Kullanıcı dostu navigasyon
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📦 Ürün Yönetimi
+- Ürün listeleme ve filtreleme
+- Yeni ürün ekleme
+- Ürün düzenleme ve silme
+- Kategori bazlı filtreleme
+- Arama fonksiyonu
+- Stok takibi
+- Durum yönetimi (Aktif/Pasif)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Products Management](project-images/2.png)
 
-### `npm test`
+### 🏷️ Kategori Yönetimi
+- Kategori listeleme
+- Yeni kategori ekleme
+- Kategori düzenleme ve silme
+- Modal tabanlı form yapısı
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Categories Management](project-images/3.png)
 
-### `npm run build`
+## 🛠️ Teknoloji Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Frontend Framework:** React 19.1.1
+- **Styling:** TailwindCSS 3.4.17
+- **HTTP Client:** Axios 1.12.1
+- **Routing:** React Router DOM 7.9.1
+- **Charts:** Recharts 3.2.0
+- **UI Components:** Radix UI
+- **Table Management:** TanStack React Table
+- **Testing:** React Testing Library
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Proje Yapısı
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+admin-panel/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   │   ├── Products.js       # Ürün yönetimi sayfası
+│   │   └── Categories.js     # Kategori yönetimi sayfası
+│   ├── services/
+│   │   └── api.js           # API servisleri
+│   ├── App.js
+│   └── index.js
+├── project-images/          # Proje görselleri
+├── package.json
+└── README.md
+```
 
-### `npm run eject`
+## 🚦 Kurulum
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Gereksinimler
+- Node.js (v14 veya üzeri)
+- npm veya yarn
+- Backend API servisi
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Adımlar
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Projeyi klonlayın**
+```bash
+git clone <repository-url>
+cd admin-panel
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. **Bağımlılıkları yükleyin**
+```bash
+npm install
+```
 
-## Learn More
+3. **Ortam değişkenlerini ayarlayın**
+```bash
+# .env dosyasını oluşturun
+REACT_APP_BACKEND_URL=http://localhost:3000
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. **Uygulamayı başlatın**
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Uygulama [http://localhost:3000](http://localhost:3000) adresinde çalışacaktır.
 
-### Code Splitting
+## 🔧 Kullanılabilir Komutlar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+# Geliştirme sunucusunu başlat
+npm start
 
-### Analyzing the Bundle Size
+# Production build oluştur
+npm run build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Testleri çalıştır
+npm test
 
-### Making a Progressive Web App
+# React Scripts yapılandırmasını çıkar
+npm run eject
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🌐 API Endpoints
 
-### Advanced Configuration
+### Ürün API'leri
+```javascript
+GET    /products         // Tüm ürünleri listele
+GET    /products/:id     // Belirli ürünü getir
+POST   /products         // Yeni ürün oluştur
+PUT    /products/:id     // Ürünü güncelle
+DELETE /products/:id     // Ürünü sil
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Kategori API'leri
+```javascript
+GET    /category         // Tüm kategorileri listele
+GET    /category/:id     // Belirli kategoriyi getir
+POST   /categories       // Yeni kategori oluştur
+PUT    /categories/:id   // Kategoriyi güncelle
+DELETE /categories/:id   // Kategoriyi sil
+```
 
-### Deployment
+## 📝 Özellik Detayları
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Ürün Yönetimi
+- **Filtreleme:** Ürün adı, kategori ve durum bazlı filtreleme
+- **Modal Form:** Ürün ekleme/düzenleme için kullanıcı dostu modal
+- **Validasyon:** Form validasyonu ve hata yönetimi
+- **Responsive Grid:** Farklı ekran boyutlarında optimize edilmiş grid yapısı
 
-### `npm run build` fails to minify
+### Kategori Yönetimi
+- **CRUD Operations:** Tam kategori yönetimi (Create, Read, Update, Delete)
+- **Instant Updates:** Anlık veri güncellemeleri
+- **Confirmation Dialogs:** Silme işlemleri için onay diyalogları
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### UI/UX Özellikleri
+- **Loading States:** Yükleme animasyonları
+- **Error Handling:** Hata durumu yönetimi
+- **Empty States:** Boş durumlar için kullanıcı dostu mesajlar
+- **Hover Effects:** İnteraktif hover efektleri
+- **Status Badges:** Renk kodlu durum etiketleri
+
+## 🎨 Tasarım Sistemi
+
+- **Color Palette:** Modern ve profesyonel renk paleti
+- **Typography:** Okunabilir ve hiyerarşik tipografi
+- **Spacing:** Tutarlı margin ve padding sistemi
+- **Components:** Yeniden kullanılabilir bileşen yapısı
+- **Icons:** Heroicons icon seti kullanımı
+
+## 🚀 Deployment
+
+### Production Build
+```bash
+npm run build
+```
+
+Build dosyaları `build/` klasörüne oluşturulacaktır.
+
+### Environment Variables
+```bash
+REACT_APP_BACKEND_URL=https://your-api-domain.com
+```
+
+## 👥 Katkıda Bulunma
+
+1. Fork edin
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Commit edin (`git commit -m 'Add some amazing feature'`)
+4. Branch'i push edin (`git push origin feature/amazing-feature`)
+5. Pull Request oluşturun
+
+## 📄 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
+
+## 📞 İletişim
+
+- **Proje:** Sergio Ferrari E-Commerce Admin Panel
+- **Teknoloji:** React, TailwindCSS, Node.js
+
+---
+
+⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
