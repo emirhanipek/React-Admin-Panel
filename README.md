@@ -1,4 +1,4 @@
-# Sergio Ferrari E-Commerce Admin Panel
+#E-Commerce Admin Panel
 
 Modern ve kullanıcı dostu React tabanlı e-ticaret admin paneli. Ürün ve kategori yönetimi için geliştirilmiş, responsive tasarıma sahip admin dashboard.
 
