@@ -21,6 +21,12 @@ export const createCategory = (data) => api.post('/category', data);
 export const updateCategory = (id, data) => api.put(`/category/${id}`, data);
 export const deleteCategory = (id) => api.delete(`/category/${id}`);
 
+// ----- About -----
+export const getAbout = () => api.get('/about');
+export const updateAbout = (data) => api.put('/about', data);
 
+// ----- Contact -----
+export const getContact = () => api.get('/contact');
+export const updateContact = (data) => api.put('/contact', data);
 
 export default api;
