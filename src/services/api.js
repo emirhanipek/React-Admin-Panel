@@ -29,4 +29,19 @@ export const updateAbout = (data) => api.put('/about', data);
 export const getContact = () => api.get('/contact');
 export const updateContact = (data) => api.put('/contact', data);
 
+
+// -----BRAND-----
+export const getAllBrands = () => api.get('/brands');
+export const createBrand = (data) => api.post('/brands', data, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+export const updateBrand = (id, data) => api.put(`/brands/${id}`, data, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+export const deleteBrand = (id) => api.delete(`/brands/${id}`);
+
 export default api;

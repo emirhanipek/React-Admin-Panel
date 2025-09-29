@@ -9,7 +9,7 @@ import Category from "./pages/Categories";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Table from "./pages/CreateTable";
-
+import Brands from "./pages/Brands";
 function App() {
   return (
     <Router>
@@ -25,6 +25,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/table" element={<Table />} />
+              <Route path="/brands" element={<Brands />} />
             </Routes>
           </main>
         </div>

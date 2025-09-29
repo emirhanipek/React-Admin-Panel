@@ -11,10 +11,10 @@ const Products = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
+    description: '',
     price: '',
-    stock: '',
     category_id: '',
-    status: 'Active'
+    image: null
   });
   const [loading, setLoading] = useState(false);
 
@@ -61,10 +61,10 @@ const Products = () => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
+      description: product.description || '',
       price: product.price,
-      stock: product.stock,
       category_id: product.category_id || '',
-      status: product.status || 'Active'
+      image: null
     });
     setIsModalOpen(true);
   }
@@ -85,12 +85,19 @@ const Products = () => {
     setEditingProduct(null);
     setFormData({
       name: '',
+      description: '',
       price: '',
-      stock: '',
       category_id: '',
-      status: 'Active'
+      image: null
     });
   }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, image: file });
+    }
+  };
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -358,99 +365,93 @@ const Products = () => {
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Product Name
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Ürün Adı
                   </label>
                   <input
                     type="text"
-                    id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter product name"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                    placeholder="Ürün adını girin"
                     required
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
-                    Price
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Açıklama
+                  </label>
+                  <textarea
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                    placeholder="Ürün açıklaması"
+                    rows={3}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Fiyat
                   </label>
                   <input
                     type="number"
                     step="0.01"
-                    id="price"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter price"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                    placeholder="0.00"
                     required
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-2">
-                    Stock
-                  </label>
-                  <input
-                    type="number"
-                    id="stock"
-                    value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter stock quantity"
-                    required
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="category_id" className="block text-sm font-medium text-gray-700 mb-2">
-                    Category
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Kategori
                   </label>
                   <select
-                    id="category_id"
                     value={formData.category_id}
                     onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                     required
                   >
-                    <option value="">Select Category</option>
+                    <option value="">Kategori Seçin</option>
                     {categories.map(category => (
                       <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                   </select>
                 </div>
 
-                <div className="mb-4">
-                  <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
-                    Status
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Görsel
                   </label>
-                  <select
-                    id="status"
-                    value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                  </select>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">PNG, JPG veya JPEG (Max. 5MB)</p>
                 </div>
 
-                <div className="flex justify-end space-x-3">
+                <div className="flex justify-end gap-2 pt-2">
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                   >
-                    Cancel
+                    İptal
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
                   >
-                    {editingProduct ? 'Update' : 'Create'}
+                    {editingProduct ? 'Güncelle' : 'Oluştur'}
                   </button>
                 </div>
               </form>
