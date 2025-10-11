@@ -9,6 +9,7 @@ const About = () => {
     headerDescription: '',
     storyTitle: '',
     storyImage: '',
+    storyDesc: '',
     misyonTitle: '',
     misyonDescription: '',
     visyonTitle: '',
@@ -27,11 +28,12 @@ const About = () => {
       if (response.data.success && response.data.data.length > 0) {
         const data = response.data.data[0];
         setFormData({
-          headerImage: data.headerImage || '',
+          headerImage: data.headerImage ? `http://localhost:3000/${data.headerImage}` : '',
           headerText: data.headerText || '',
           headerDescription: data.headerDescription || '',
           storyTitle: data.storyTitle || '',
-          storyImage: data.storyImage || '',
+          storyImage: data.storyImage ? `http://localhost:3000/${data.storyImage}` : '',
+          storyDesc: data.storyDesc || '',
           misyonTitle: data.misyonTitle || '',
           misyonDescription: data.misyonDescription || '',
           visyonTitle: data.visyonTitle || '',
@@ -58,20 +60,25 @@ const About = () => {
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setFormData(prev => ({
-          ...prev,
-          [fieldName]: event.target.result
-        }));
-      };
-      reader.readAsDataURL(file);
+      setFormData(prev => ({
+        ...prev,
+        [fieldName]: file
+      }));
     }
   };
 
   const handleSave = async () => {
     try {
-      await updateAbout(formData);
+      const formDataToSend = new FormData();
+
+      // Tüm form verilerini FormData'ya ekle
+      Object.keys(formData).forEach(key => {
+        if (formData[key]) {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
+
+      await updateAbout(formDataToSend);
       toast.success('Veriler başarıyla kaydedildi!');
       fetchAboutData();
     } catch (error) {
@@ -119,7 +126,11 @@ const About = () => {
               />
               {formData.headerImage && (
                 <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200">
-                  <img src={formData.headerImage} alt="Header" className="w-full h-full object-cover" />
+                  <img
+                    src={formData.headerImage instanceof File ? URL.createObjectURL(formData.headerImage) : formData.headerImage}
+                    alt="Header"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               )}
             </div>
@@ -184,10 +195,29 @@ const About = () => {
               />
               {formData.storyImage && (
                 <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200">
-                  <img src={formData.storyImage} alt="Story" className="w-full h-full object-cover" />
+                  <img
+                    src={formData.storyImage instanceof File ? URL.createObjectURL(formData.storyImage) : formData.storyImage}
+                    alt="Story"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               )}
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-3">Hikaye Açıklaması</label>
+            <textarea
+              name="storyDesc"
+              value={formData.storyDesc}
+              onChange={handleInputChange}
+              placeholder="Hikaye açıklama metni (Paragraflar arasında boşluk bırakmak için Enter tuşuna basın)"
+              rows={8}
+              className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
+            />
+            <p className="mt-2 text-sm text-gray-500">
+              İpucu: Paragraflar arasında boşluk bırakmak için Enter tuşuna basın.
+            </p>
           </div>
         </div>
       </div>

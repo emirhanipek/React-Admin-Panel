@@ -32,7 +32,7 @@ const Contact = () => {
       if (response.data.success && response.data.data.length > 0) {
         const data = response.data.data[0];
         setFormData({
-          headerImage: data.headerImage || '',
+          headerImage: data.headerImage ? `http://localhost:3000/${data.headerImage}` : '',
           headerTitle: data.headerTitle || '',
           headerDesc: data.headerDesc || '',
           phoneTitle: data.phoneTitle || '',
@@ -68,20 +68,25 @@ const Contact = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setFormData(prev => ({
-          ...prev,
-          headerImage: event.target.result
-        }));
-      };
-      reader.readAsDataURL(file);
+      setFormData(prev => ({
+        ...prev,
+        headerImage: file
+      }));
     }
   };
 
   const handleSave = async () => {
     try {
-      await updateContact(formData);
+      const formDataToSend = new FormData();
+
+      // Tüm form verilerini FormData'ya ekle
+      Object.keys(formData).forEach(key => {
+        if (formData[key]) {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
+
+      await updateContact(formDataToSend);
       toast.success('İletişim bilgileri başarıyla kaydedildi!');
       fetchContactData();
     } catch (error) {
@@ -129,7 +134,11 @@ const Contact = () => {
               />
               {formData.headerImage && (
                 <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200">
-                  <img src={formData.headerImage} alt="Header" className="w-full h-full object-cover" />
+                  <img
+                    src={formData.headerImage instanceof File ? URL.createObjectURL(formData.headerImage) : formData.headerImage}
+                    alt="Header"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               )}
             </div>
