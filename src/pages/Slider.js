@@ -26,7 +26,7 @@ const Slider = () => {
         // Görsel URL'lerini backend base URL ile birleştir
         const slidersWithFullUrls = response.data.data.map(slider => ({
           ...slider,
-          sliderImage: `http://localhost:3000/${slider.sliderImage}`
+          sliderImage: `${process.env.REACT_APP_BACKEND_URL}/${slider.sliderImage}`
         }));
         setSliders(slidersWithFullUrls);
         toast.success('Slider\'lar başarıyla yüklendi!');

@@ -35,7 +35,7 @@ const Signboards = () => {
   const fetchSignboards = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3000/signboards');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signboards`);
 
       if (!response.ok) {
         throw new Error('Veri yüklenirken hata oluştu');

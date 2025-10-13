@@ -28,11 +28,11 @@ const About = () => {
       if (response.data.success && response.data.data.length > 0) {
         const data = response.data.data[0];
         setFormData({
-          headerImage: data.headerImage ? `http://localhost:3000/${data.headerImage}` : '',
+          headerImage: data.headerImage ? `${process.env.REACT_APP_BACKEND_URL}/${data.headerImage}` : '',
           headerText: data.headerText || '',
           headerDescription: data.headerDescription || '',
           storyTitle: data.storyTitle || '',
-          storyImage: data.storyImage ? `http://localhost:3000/${data.storyImage}` : '',
+          storyImage: data.storyImage ? `${process.env.REACT_APP_BACKEND_URL}/${data.storyImage}` : '',
           storyDesc: data.storyDesc || '',
           misyonTitle: data.misyonTitle || '',
           misyonDescription: data.misyonDescription || '',

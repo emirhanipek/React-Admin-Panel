@@ -159,7 +159,7 @@ const Brands = () => {
               <div className="aspect-video bg-gray-100 flex items-center justify-center p-4">
                 {brand.image_url ? (
                   <img
-                    src={`http://localhost:3000${brand.image_url}`}
+                    src={`${process.env.REACT_APP_BACKEND_URL}${brand.image_url}`}
                     alt={brand.brand_name}
                     className="max-w-full max-h-full object-contain"
                   />

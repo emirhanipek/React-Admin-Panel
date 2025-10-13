@@ -284,7 +284,7 @@ const Products = () => {
         <div className="relative w-full h-64 bg-gray-200">
           {product.images && product.images.length > 0 ? (
             <img
-              src={`http://localhost:3000${product.images[0].image_url}`}
+              src={`${process.env.REACT_APP_BACKEND_URL}${product.images[0].image_url}`}
               alt={product.name}
               className="w-full h-full object-cover"
             />

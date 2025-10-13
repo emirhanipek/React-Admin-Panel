@@ -32,7 +32,7 @@ const Contact = () => {
       if (response.data.success && response.data.data.length > 0) {
         const data = response.data.data[0];
         setFormData({
-          headerImage: data.headerImage ? `http://localhost:3000/${data.headerImage}` : '',
+          headerImage: data.headerImage ? `${process.env.REACT_APP_BACKEND_URL}/${data.headerImage}` : '',
           headerTitle: data.headerTitle || '',
           headerDesc: data.headerDesc || '',
           phoneTitle: data.phoneTitle || '',
